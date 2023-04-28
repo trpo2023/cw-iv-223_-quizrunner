@@ -21,7 +21,7 @@ int main()
             score++;
             break;
         default:
-            printf("Неправильно...\n");
+            printf("Неправильно...:(\n");
             break;
         }
         n--;
