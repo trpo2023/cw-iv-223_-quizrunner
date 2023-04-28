@@ -64,13 +64,13 @@ void get_variants(int number_of_question, char *str, char *str1, char *str2, cha
     preparation(str3);
 }
 
-char *get_answer(int number_of_question)
+int get_answer(int number_of_question)
 {
     FILE *file = fopen("questions.txt", "r");
     if (file == NULL)
     {
         printf("\nНе удаётся открыть файл!");
-        return "\n";
+        return 0;
     }
 
     char *words = (char *)malloc(sizeof(char) * 200);
@@ -83,5 +83,5 @@ char *get_answer(int number_of_question)
     }
     fclose(file);
     preparation(words);
-    return words;
+    return atoi(words);
 }
