@@ -22,7 +22,14 @@ int main()
         printf("%s", get_question(i));
         get_variants(i, str1, str2, str3, str4);
         printf("%s%s%s%s", str1, str2, str3, str4);
-        scanf("%d", &answer);
+
+        while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4)
+        {
+            printf("Ошибка! Введите номер ответа.\n");
+            while (getchar() != '\n')
+                ;
+        }
+
         if (answer == get_answer(i))
         {
             printf("Правильно!!\n");
@@ -33,7 +40,7 @@ int main()
             printf("Ошибочка :<\n");
         }
     }
-    printf("Ваш счет: %d\n", score);
+    printf("Ваш счет: %d из %d\n", score, n);
 
     return 0;
 }
