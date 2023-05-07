@@ -26,8 +26,7 @@ int main()
         while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4)
         {
             printf("Ошибка! Введите номер ответа.\n");
-            while (getchar() != '\n')
-                ;
+            while (getchar() != '\n');
         }
 
         if (answer == get_answer(i))
@@ -40,7 +39,8 @@ int main()
             printf("Ошибочка :<\n");
         }
     }
-    printf("Ваш счет: %d из %d\n", score, n);
+    double percent = (double)score / n * 100;
+    printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
 
     return 0;
 }
