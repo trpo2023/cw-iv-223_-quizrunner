@@ -48,6 +48,13 @@ int main()
 
         while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4)
         {
+            if (getchar() == 'q')
+            {
+                printf("Вы завершили тест.\n");
+                double percent = (double)score / n * 100;
+                printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
+                return 0;
+            }
             printf("Ошибка! Введите номер ответа.\n");
             while (getchar() != '\n')
                 ;
@@ -67,6 +74,16 @@ int main()
     double percent = (double)score / n * 100;
     printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
     printf("Время выполнения: %.2f секунд!\n", time_of_end - time_of_start);
+
+    FILE *fp;
+    fp = fopen("result.txt", "a");
+    if (fp == NULL)
+    {
+        printf("Ошибка при открытии файла.\n");
+        return 1;
+    }
+    fprintf(fp, "Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
+    fclose(fp);
     free(str1);
     free(str2);
     free(str3);
