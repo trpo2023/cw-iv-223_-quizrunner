@@ -43,8 +43,8 @@ int main()
     for (int i = 1; i <= n; i++)
     {
         printf("\n%s", get_question(i));
-        get_variants(i, str1, str2, str3, str4);
-        printf("%s%s%s%s", str1, str2, str3, str4);
+        int otvet = get_variants(i, str1, str2, str3, str4);
+        printf("1) %s\n2) %s\n3) %s\n4) %s\n", str1, str2, str3, str4);
 
         while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4)
         {
@@ -53,7 +53,7 @@ int main()
                 ;
         }
 
-        if (answer == get_answer(i))
+        if (answer == otvet)
         {
             printf("Правильно!!\n");
             score++;
