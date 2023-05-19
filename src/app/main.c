@@ -18,11 +18,10 @@ int main()
     int n;         // кол-во вопросов
 
     printf("Сколько должно быть вопросов?\n");
-    while (scanf("%d", &n) != 1 || n > 16 || n < 1)
-    {
-        if (n < 1 && scanf("%d", &n) != 0)
-        {
-            printf("тест завершён, не успев начаться... \nВаш счёт: 0/0 (100%%)\n");
+    while (scanf("%d", &n) != 1 || n > 16 || n < 1) {
+        if (n < 1 && scanf("%d", &n) != 0) {
+            printf("тест завершён, не успев начаться... \nВаш счёт: 0/0 "
+                   "(100%%)\n");
             return 0;
         }
 
@@ -32,23 +31,20 @@ int main()
                 ;
     }
 
-    char *str1 = (char *)malloc(sizeof(char) * 200); // вариант ответа 1
-    char *str2 = (char *)malloc(sizeof(char) * 200); // вариант ответа 2
-    char *str3 = (char *)malloc(sizeof(char) * 200); // вариант ответа 3
-    char *str4 = (char *)malloc(sizeof(char) * 200); // вариант ответа 4
+    char* str1 = (char*)malloc(sizeof(char) * 200); // вариант ответа 1
+    char* str2 = (char*)malloc(sizeof(char) * 200); // вариант ответа 2
+    char* str3 = (char*)malloc(sizeof(char) * 200); // вариант ответа 3
+    char* str4 = (char*)malloc(sizeof(char) * 200); // вариант ответа 4
 
     printf("Тест начинается, ваше время пошло!\n");
     double time_of_start = wtime();
-    for (int i = 1; i <= n; i++)
-    {
+    for (int i = 1; i <= n; i++) {
         printf("\n%s", get_question(i));
         int otvet = get_variants(i, str1, str2, str3, str4);
         printf("1) %s\n2) %s\n3) %s\n4) %s\n", str1, str2, str3, str4);
 
-        while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4)
-        {
-            if (getchar() == 'q')
-            {
+        while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4) {
+            if (getchar() == 'q') {
                 printf("Вы завершили тест.\n");
                 double percent = (double)score / n * 100;
                 printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
@@ -59,13 +55,10 @@ int main()
                 ;
         }
 
-        if (answer == otvet)
-        {
+        if (answer == otvet) {
             printf("Правильно!!\n");
             score++;
-        }
-        else
-        {
+        } else {
             printf("Ошибочка :<\n");
         }
     }
@@ -74,10 +67,9 @@ int main()
     printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
     printf("Время выполнения: %.2f секунд!\n", time_of_end - time_of_start);
 
-    FILE *fp;
+    FILE* fp;
     fp = fopen("result.txt", "a");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Ошибка при открытии файла.\n");
         return 1;
     }

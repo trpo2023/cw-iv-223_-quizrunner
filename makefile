@@ -6,7 +6,7 @@ APP_DIR = app
 CC = gcc
 
 CFLAGS = -Wall -Werror -g -O0
-CPPFLAGS = -Isrc -MP -MMD
+CPPFLAGS = -Isrc -Ithirdparty -MP -MMD
 
 BIN_DIR = bin
 OBJ_DIR = obj
