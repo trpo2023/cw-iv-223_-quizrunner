@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#include "extract.h"
+#include "lib/extract.h"
 
 double wtime()
 {
@@ -18,19 +18,18 @@ int main()
     int n;         // кол-во вопросов
 
     printf("Сколько должно быть вопросов?\n");
-    while (scanf("%d", &n) != 1 || n > 9 || n < 1)
+    while (scanf("%d", &n) != 1 || n > 16 || n < 1)
     {
-        if (n < 1)
+        if (n < 1 && scanf("%d", &n) != 0)
         {
             printf("тест завершён, не успев начаться... \nВаш счёт: 0/0 (100%%)\n");
             return 0;
         }
 
-        {
-            printf("Ошибка! Введите корректное количество вопросов. \n");
+        printf("Ошибка! Введите корректное количество вопросов. \n");
+        if (scanf("%d", &n) == 0)
             while (getchar() != '\n')
                 ;
-        }
     }
 
     char *str1 = (char *)malloc(sizeof(char) * 200); // вариант ответа 1
