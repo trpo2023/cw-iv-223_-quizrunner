@@ -1,4 +1,4 @@
-Flags = -Wall -Werror
+Flags = -Wall -Werror -g -O0
 
 .PHONY: all
 

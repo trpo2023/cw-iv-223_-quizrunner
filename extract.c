@@ -1,15 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "extract.h"
 
-void preparation(char *str)
+void randomize(int *arr)
 {
     int i = 0;
-    while (str[i + 1] != '\0')
+    srand(time(NULL));
+    while (i < 4)
     {
-        str[i] = str[i + 2];
-        i++;
+        int tmp = rand() % 4;
+        if (arr[tmp] == 0)
+        {
+            arr[tmp] = i + 1;
+            i++;
+        }
+    }
+}
+
+void preparation(char *str, int j)
+{
+    for (int k = 0; k < j; k++)
+    {
+        int i = 0;
+        while (str[i + 1] != '\0')
+        {
+            str[i] = str[i + 2];
+            i++;
+        }
     }
 }
 
@@ -31,11 +50,11 @@ char *get_question(int number_of_question)
             i++;
     }
     fclose(file);
-    preparation(words);
+    preparation(words, 1);
     return words;
 }
 
-void get_variants(int number_of_question, char *str, char *str1, char *str2, char *str3)
+int get_variants(int number_of_question, char *str, char *str1, char *str2, char *str3)
 {
     FILE *file = fopen("questions.txt", "r");
     if (file == NULL)
@@ -51,17 +70,44 @@ void get_variants(int number_of_question, char *str, char *str1, char *str2, cha
         if (words[0] == '-')
             i++;
     }
+    int *rand = (int *)calloc(sizeof(int), 4);
+    randomize(rand);
     fgets(words, 200, file); // нужен для пропуска строки. Потенциально получение вопроса в этой функции, а не в отдельной
-    fgets(str, 200, file);
-    fgets(str1, 200, file);
-    fgets(str2, 200, file);
-    fgets(str3, 200, file);
+    int answer = 0;
+    for (i = 0; i < 4; i++)
+    {
+        switch (rand[i])
+        {
+        case 1:
+            fgets(str, 200, file);
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        case 2:
+            fgets(str1, 200, file);
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        case 3:
+            fgets(str2, 200, file);
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        case 4:
+            fgets(str3, 200, file);
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        }
+    }
     fclose(file);
     free(words);
-    preparation(str);
-    preparation(str1);
-    preparation(str2);
-    preparation(str3);
+    free(rand);
+    preparation(str, 2);
+    preparation(str1, 2);
+    preparation(str2, 2);
+    preparation(str3, 2);
+    return answer;
 }
 
 int get_answer(int number_of_question)
@@ -79,9 +125,13 @@ int get_answer(int number_of_question)
     {
         fgets(words, 200, file);
         if (words[0] == '1')
+        {
+            if (i == number_of_question)
+                break;
             i++;
+        }
     }
     fclose(file);
-    preparation(words);
+    preparation(words, 1);
     return atoi(words);
 }
