@@ -48,11 +48,19 @@ int main()
                 printf("Вы завершили тест.\n");
                 double percent = (double)score / n * 100;
                 printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
+                FILE* fp;
+                fp = fopen("result.txt", "a");
+                if (fp == NULL) {
+                    printf("Ошибка при открытии файла.\n");
+                    return 1;
+                }
+                fprintf(fp, "Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
+                fclose(fp);
                 return 0;
             }
             printf("Ошибка! Введите номер ответа.\n");
-            while (getchar() != '\n')
-                ;
+            // while (getchar() != '\n')
+            //     ;
         }
 
         if (answer == otvet) {
