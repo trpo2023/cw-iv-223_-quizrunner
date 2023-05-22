@@ -48,6 +48,32 @@ char* get_question(int number_of_question)
     return words;
 }
 
+int get_answer_place(int* rand, int number_of_question)
+{
+    int answer;
+    for (int i = 0; i < 4; i++) {
+        switch (rand[i]) {
+        case 1:
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        case 2:
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        case 3:
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        case 4:
+            if (get_answer(number_of_question) == (i + 1))
+                answer = rand[i];
+            break;
+        }
+    }
+    return answer;
+}
+
 int get_variants(
         int number_of_question, char* str, char* str1, char* str2, char* str3)
 {
@@ -65,35 +91,24 @@ int get_variants(
     }
     int* rand = (int*)calloc(sizeof(int), 4);
     randomize(rand);
-    fgets(words,
-          200,
-          file); // нужен для пропуска строки. Потенциально получение вопроса в
-                 // этой функции, а не в отдельной
-    int answer = 0;
+    fgets(words, 200, file);
     for (i = 0; i < 4; i++) {
         switch (rand[i]) {
         case 1:
             fgets(str, 200, file);
-            if (get_answer(number_of_question) == (i + 1))
-                answer = rand[i];
             break;
         case 2:
             fgets(str1, 200, file);
-            if (get_answer(number_of_question) == (i + 1))
-                answer = rand[i];
             break;
         case 3:
             fgets(str2, 200, file);
-            if (get_answer(number_of_question) == (i + 1))
-                answer = rand[i];
             break;
         case 4:
             fgets(str3, 200, file);
-            if (get_answer(number_of_question) == (i + 1))
-                answer = rand[i];
             break;
         }
     }
+    int answer = get_answer_place(rand, number_of_question);
     fclose(file);
     free(words);
     free(rand);
