@@ -44,19 +44,19 @@ int main()
     for (int i = 1; i <= n; i++) {
         printf("\n%s", get_question(i));
         int otvet = get_variants(i, str1, str2, str3, str4);
-	printf("\033[0;35m");
+        printf("\033[0;35m");
         printf("1) %s\n2) %s\n3) %s\n4) %s\n", str1, str2, str3, str4);
-	printf("\033[0m");
+        printf("\033[0m");
         while (scanf("%d", &answer) != 1 || answer < 1 || answer > 4) {
             if (getchar() == 'q') {
-	        printf("\033[0;35m");
+                printf("\033[0;35m");
                 printf("Вы завершили тест.\n");
                 printf("\033[0m");
-		double percent = (double)score / n * 100;
-		printf("\033[4;35m");
+                double percent = (double)score / n * 100;
+                printf("\033[4;35m");
                 printf("Ваш счет: %d из %d (%.2f%%)\n", score, n, percent);
                 printf("\033[0m");
-		FILE* fp;
+                FILE* fp;
                 fp = fopen("result.txt", "a");
                 if (fp == NULL) {
                     printf("Ошибка при открытии файла.\n");
@@ -72,14 +72,14 @@ int main()
         }
 
         if (answer == otvet) {
-	    printf("\033[1;32m");
+            printf("\033[1;32m");
             printf("Правильно!!\n");
-	    printf("\033[0m");
+            printf("\033[0m");
             score++;
         } else {
-	    printf("\033[1;31m");
+            printf("\033[1;31m");
             printf("Ошибочка :<\n");
-	    printf("\033[0m");
+            printf("\033[0m");
         }
     }
     double time_of_end = wtime();
